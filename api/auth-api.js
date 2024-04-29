@@ -3,6 +3,9 @@ import axios from "axios";
 const BASE_URL = "https://finance-pro-auth-api.vercel.app/user"
 
 class AuthApi {
+    constructor() {
+
+    }
     async decodeToken(token) {
         const config = {
             headers: {
@@ -20,7 +23,7 @@ class AuthApi {
     async login(email, password){
         try {
             const response = await axios.post(`${BASE_URL}/login`, { email, password });
-            return response;
+            return response.data;
         } catch (error) {
             return error.response;
         }

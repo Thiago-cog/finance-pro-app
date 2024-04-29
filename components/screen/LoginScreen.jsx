@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, Alert } from 'react-native';
 import React, { useState } from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -7,9 +7,9 @@ import authApi from 'api/auth-api';
 const LoginScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    function login(){
-        const result = authApi.login(email, password);
-        console.log("Usário Logado com sucesso");
+    async function login(){
+        const result = await authApi.login(email, password);
+        Alert.alert(result.message);
     }
 
     return (
