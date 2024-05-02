@@ -1,12 +1,18 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import authApi from 'api/auth-api';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const navigation = useNavigation();
+    const handleRegister = () => {
+        navigation.navigate("Signup")
+    }
+
     async function login(){
         const result = await authApi.login(email, password);
         Alert.alert(result.message);
@@ -22,7 +28,7 @@ const LoginScreen = () => {
                 <Text style={styles.textSubTitle}>Login com a sua conta</Text>
             </View>
             <View style={styles.inputContainer}>
-                <FontAwesome name={"user"} size={24} color={"#f8fafc"} style={styles.inputImage} />
+                <Fontisto name={"email"} size={24} color={"#f8fafc"} style={styles.inputImage} />
                 <TextInput style={styles.textInput} placeholder='Email' placeholderTextColor={"#f8fafc"} onChangeText={setEmail}/>
             </View>
             <View style={styles.inputContainer}>
@@ -36,6 +42,9 @@ const LoginScreen = () => {
                 <Text style={styles.singIn}>Sing In</Text>
                 <Button title="→" onPress={login} style={styles.singInButton}/>
             </View>
+            <TouchableOpacity onPress={handleRegister}>
+                <Text style={styles.footerText}>Não posui conta? <Text style={{textDecorationLine: "underline", color:"#00bbff"}}>Cadstre-se agora</Text></Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -125,5 +134,11 @@ const styles = StyleSheet.create({
         height: 34,
         width: 56,
         borderRadius: 17,
+    },
+    footerText: {
+        color: "#f8fafc",
+        textAlign: "center",
+        fontSize: 15,
+        marginTop: 120
     }
 });
