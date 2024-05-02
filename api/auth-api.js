@@ -32,7 +32,7 @@ class AuthApi {
     async registerUser(email, password, fullname){
         try {
             const response = await axios.put(`${BASE_URL}/register`, { email, password, fullname });
-            return response;
+            return response.data;
         } catch (error) {
             return error.response;
         }
